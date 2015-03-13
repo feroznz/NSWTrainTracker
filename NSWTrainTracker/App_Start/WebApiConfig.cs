@@ -1,9 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
-using Microsoft.Practices.Unity;
 using NSWTrainTracker.Models.Custom_Exception;
-using NSWTrainTracker.Models.DAL;
-using NSWTrainTracker.Resolver;
 
 namespace NSWTrainTracker.App_Start
 {
@@ -13,12 +10,10 @@ namespace NSWTrainTracker.App_Start
         {
             // Web API configuration and services
 
-            var container = new UnityContainer();
-            container.RegisterType<ITrackWorkRepository, TrackWorkRepository>(new HierarchicalLifetimeManager());
-            config.DependencyResolver = new UnityResolver(container);
+           
 
             // return json - jsonp.
-            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+               config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
 
             // Web API routes

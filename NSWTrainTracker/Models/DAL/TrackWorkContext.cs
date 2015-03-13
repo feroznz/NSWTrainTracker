@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Xml.Linq;
 
 namespace NSWTrainTracker.Models.DAL
@@ -16,18 +15,18 @@ namespace NSWTrainTracker.Models.DAL
     /// </summary>
     public class TrackWorkContext
     {
-        private const string _hostUri = @"http://www.sydneytrains.info/rss/feeds/trackwork.xml";
+        private const string HostUri = @"http://www.sydneytrains.info/rss/feeds/trackwork.xml";
 
         public IEnumerable<TrackWork> Get()
         {
-            var xmlDoc = MakeRequest(_hostUri);
+            var xmlDoc = MakeRequest(HostUri);
             if (xmlDoc == null) return null;
 
             //Check if its good service.
             //var check = xmlDoc.Descendants("item").Where(e => e.Element("title").Value.StartsWith("Good"));
             var items = (from c in xmlDoc.Descendants("item")
                          select
-                             new TrackWork()
+                             new TrackWork
                              {
                                  Title = GetTitle(c.Element("title")),
                                  StartDate = GetDates(c.Element("title"))[0].ToString("f"),
